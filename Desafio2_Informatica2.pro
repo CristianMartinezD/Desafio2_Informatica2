@@ -4,4 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+        gasolinera.cpp \
+        main.cpp \
+        termax.cpp
+
+HEADERS += \
+    gasolinera.h \
+    termax.h

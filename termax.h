@@ -7,11 +7,15 @@ using namespace std;
 class TerMax
 {
 private:
-    Gasolinera* ArregloDEgasolineras = new Gasolinera[7];
+    unsigned int capacidadN = 7, capacidadC = 7, capacidadS = 7;
+    Gasolinera* ArregloDEgasolinerasN = new Gasolinera[capacidadN];
+    Gasolinera* ArregloDEgasolinerasC = new Gasolinera[capacidadC];
+    Gasolinera* ArregloDEgasolinerasS = new Gasolinera[capacidadS];
     string region;
-    unsigned int siguientePosicion;
+    unsigned int siguientePosicionN, siguientePosicionC, siguientePosicionS;
+    void redimensionar(string R,unsigned int& capacidad);
 public:
-    TerMax(string _region);
+    TerMax();
 
     void gasolinerasDelNorte();
 
@@ -21,8 +25,16 @@ public:
 
     void agregarGasolinera();
 
+    void rellenarTanque(unsigned int tanque[], bool fijaPrecio = false);
 
-    ~TerMax(){delete[] ArregloDEgasolineras;}
+    void mostrarGasolineras();
+
+    Gasolinera* getArregloDeGasolineras(string R);
+    Gasolinera* getArregloDeGasolinerasC();
+    Gasolinera* getArregloDeGasolinerasS();
+
+
+    ~TerMax(){delete[] ArregloDEgasolinerasN; delete[] ArregloDEgasolinerasC; delete[] ArregloDEgasolinerasS;}
 };
 
 #endif // TERMAX_H

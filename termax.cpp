@@ -2,6 +2,7 @@
 #include <gasolinera.h>
 #include <cstdlib>   // Para rand() y srand()
 #include <ctime>     // Para time()
+#include <funciones.h>
 #include <iostream>
 
 using namespace std;
@@ -16,7 +17,7 @@ TerMax::TerMax()
 
 void TerMax::gasolinerasDelNorte()
 {
-    unsigned int tanque1[6], tanque2[6], tanque3[6], tanque4[6];
+    unsigned int tanque1[6] = {0,0,0,precioRN,precioEN,precioPN}, tanque2[6], tanque3[6], tanque4[6];
     srand(time(0));
     rellenarTanque(tanque1,true); rellenarTanque(tanque2); rellenarTanque(tanque3); rellenarTanque(tanque4);
     for (int i = 0; i < 3; ++i) {
@@ -76,6 +77,7 @@ void TerMax::rellenarTanque(unsigned int tanque[], bool fijaPrecio)
         unsigned int cantidadDeCombustible = min + (rand() % (max - min + 1)); // Cantidad de combustible (Regular, EcoExtra y Premium)
         tanque[i] = cantidadDeCombustible;
     }
+
     for (size_t i = 3; i < 6; ++i){
         unsigned int min = 3700, max = 4200;
         unsigned int precio = min + (rand() % (max - min + 1)); // Precio de combustible (Regular, EcoExtra y Premium)
@@ -94,6 +96,58 @@ void TerMax::rellenarTanque(unsigned int tanque[], bool fijaPrecio)
             }
         }
     }
+}
+
+void TerMax::cambiarPrecio()
+{
+    unsigned int nuevo_precio, tamano; Gasolinera *ArregloDEgasolineras;
+    int region = validarRegion();
+
+    switch (region) {
+        case 1: {
+            ArregloDEgasolineras = ArregloDEgasolinerasN;
+            tamano = siguientePosicionN;
+            break;
+        }
+        case 2: {
+            ArregloDEgasolineras = ArregloDEgasolinerasC;
+            tamano = siguientePosicionC;
+            break;
+        }
+        case 3: {
+            ArregloDEgasolineras = ArregloDEgasolinerasS;
+            tamano = siguientePosicionS;
+            break;
+        }
+    }
+
+    string respuesta;
+    cout<<"\nVAS A CAMBIAR EL PRECIO DEL COMBUSTIBLE Regular? (si, no): "; cin >> respuesta;
+    if (respuesta == "si" || respuesta == "Si" || respuesta == "SI"){
+        cout<<"\nINGRESA EL NUEVO PRECIO: "; cin >> nuevo_precio;
+        for (unsigned int i = 0; i < tamano; ++i) {
+            ArregloDEgasolineras[i].retornarTanque()[3] = nuevo_precio;
+        }
+    }
+
+    cout<<"\nVAS A CAMBIAR EL PRECIO DEL COMBUSTIBLE EcoExtra? (si, no): "; cin >> respuesta;
+    if (respuesta == "si" || respuesta == "Si" || respuesta == "SI"){
+        cout<<"\nINGRESA EL NUEVO PRECIO: "; cin >> nuevo_precio;
+        for (unsigned int i = 0; i < tamano; ++i) {
+            ArregloDEgasolineras[i].retornarTanque()[4] = nuevo_precio;
+        }
+    }
+
+    cout<<"\nVAS A CAMBIAR EL PRECIO DEL COMBUSTIBLE Premium? (si, no): "; cin >> respuesta;
+    if (respuesta == "si" || respuesta == "Si" || respuesta == "SI"){
+        cout<<"\nINGRESA EL NUEVO PRECIO: "; cin >> nuevo_precio;
+        for (unsigned int i = 0; i < tamano; ++i) {
+            ArregloDEgasolineras[i].retornarTanque()[5] = nuevo_precio;
+        }
+    }
+
+    cout <<"\n\nHAS CAMBIADO EXITOSAMENTE EL PRECIO DE LA GASOLINA EN ESTA REGION!\n\n";
+    system("pause");
 }
 
 void TerMax::mostrarGasolineras()
@@ -133,6 +187,7 @@ Gasolinera *TerMax::getArregloDeGasolinerasS()
 {
     return ArregloDEgasolinerasS;
 }
+
 
 
 void TerMax::agregarGasolinera()
@@ -251,4 +306,30 @@ void TerMax::redimensionar(string R,unsigned int& capacidad)
         delete[] ArregloDEgasolinerasS;  // Lo mismo
         ArregloDEgasolinerasS = nuevoArray; // Lo mismo
     }
+}
+
+
+
+int TerMax::validarRegion()
+{
+    string region;
+    do {
+        cout << "\nEn cual region del pais vas a realizar esta operacion?";
+        cout << "\n1. Norte";
+        cout << "\n2. Centro";
+        cout << "\n3. Sur";
+        cout<<"\nIngresa una de las anteriores opciones (1, 2, o 3): "; cin >>  region;
+
+        if(region != "1" && region != "2" && region != "3") {
+            system("cls");
+            cout <<"\nOPCION INVALIDA, INTENTALO NUEVAMENTE.\n";
+        }
+
+    } while( region != "1" && region != "2" && region != "3");
+
+    int REGION;
+    if (region == "1")REGION = 1;
+    if (region == "2")REGION = 2;
+    if (region == "3")REGION = 3;
+    return REGION;
 }

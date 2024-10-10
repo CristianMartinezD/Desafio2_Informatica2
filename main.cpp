@@ -41,6 +41,7 @@ int main() {
         switch(opcion) {
         case 1: {gasolinerasDelPais.agregarGasolinera(); break;}
         case 7: {gasolinerasDelPais.mostrarGasolineras(); break;}
+        case 4: {gasolinerasDelPais.cambiarPrecio();; break;}
         case 8: break;
         default:
             cout << "Opcion invalida, intente nuevamente.\n";

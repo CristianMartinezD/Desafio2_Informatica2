@@ -2,7 +2,11 @@
 #include <iostream>
 using namespace std;
 
-Gasolinera::Gasolinera() {}
+Gasolinera::Gasolinera() {
+    for (int i = 0; i < 5; ++i) {
+        surtidores[i] = surtidor(tanque);
+    }
+}
 
 Gasolinera::Gasolinera(string _nombre, string _codigo, string _gerente, string _region, string _coordenadas, unsigned int _tanque[6])
 {

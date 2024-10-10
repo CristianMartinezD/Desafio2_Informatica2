@@ -24,3 +24,6 @@ string validarCategoria()
     if (categoria == "3") categoria = "Premium";
     return categoria;
 }
+
+
+

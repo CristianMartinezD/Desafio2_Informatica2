@@ -2,13 +2,9 @@
 #include <iostream>
 using namespace std;
 
-Gasolinera::Gasolinera() {
-    for (int i = 0; i < 5; ++i) {
-        surtidores[i] = surtidor(tanque);
-    }
-}
+Gasolinera::Gasolinera() {}
 
-Gasolinera::Gasolinera(string _nombre, string _codigo, string _gerente, string _region, string _coordenadas, unsigned int _tanque[6])
+Gasolinera::Gasolinera(string _nombre, string _codigo, string _gerente, string _region, string _coordenadas, unsigned int _tanque[6], unsigned short _cantidaDeSurtidores)
 {
     nombre = _nombre;
     codigo = _codigo;
@@ -21,6 +17,11 @@ Gasolinera::Gasolinera(string _nombre, string _codigo, string _gerente, string _
     tanque[3] = _tanque[3];
     tanque[4] = _tanque[4];
     tanque[5] = _tanque[5];
+    cantidaDeSurtidores = _cantidaDeSurtidores;
+    cout<<"\nCantidad de surtidores: "<<_cantidaDeSurtidores<<endl;
+    for (int i = 0; i < cantidaDeSurtidores; ++i) {
+        surtidores[i] = surtidor(tanque, surtidores, cantidaDeSurtidores);
+    }
 }
 
 void Gasolinera::imprimir()
@@ -33,4 +34,24 @@ void Gasolinera::imprimir()
 unsigned int *Gasolinera::retornarTanque()
 {
     return tanque;
+}
+
+string Gasolinera::getNombre()
+{
+    return nombre;
+}
+
+unsigned short Gasolinera::getcantidaDeSurtidores()
+{
+    return cantidaDeSurtidores;
+}
+
+surtidor *Gasolinera::getSurtidores()
+{
+    return surtidores;
+}
+
+Gasolinera::~Gasolinera()
+{
+
 }

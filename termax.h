@@ -11,7 +11,6 @@ private:
     Gasolinera* ArregloDEgasolinerasN = new Gasolinera[capacidadN];
     Gasolinera* ArregloDEgasolinerasC = new Gasolinera[capacidadC];
     Gasolinera* ArregloDEgasolinerasS = new Gasolinera[capacidadS];
-    string region;
     unsigned int siguientePosicionN, siguientePosicionC, siguientePosicionS;
     void redimensionar(string R,unsigned int& capacidad);
 public:
@@ -24,9 +23,12 @@ public:
     void gasolinerasDelSur();
 
     void agregarGasolinera();
+    void eliminarEstacion();
 
     void rellenarTanque(unsigned int tanque[], bool fijaPrecio = false);
     void cambiarPrecio();
+
+    void venderGasolina();
 
     void mostrarGasolineras();
 
@@ -35,8 +37,10 @@ public:
     Gasolinera* getArregloDeGasolinerasS();
     int validarRegion();
 
+    void ventasTotalesPorCaTDeLasES();
 
-    ~TerMax(){delete[] ArregloDEgasolinerasN; delete[] ArregloDEgasolinerasC; delete[] ArregloDEgasolinerasS;}
+
+    ~TerMax();
 };
 
 #endif // TERMAX_H

@@ -1,8 +1,8 @@
-#include <termax.h>
-#include <gasolinera.h>
+#include "termax.h"
+#include "gasolinera.h"
 #include <cstdlib>   // Para rand() y srand()
 #include <ctime>     // Para time()
-#include <funciones.h>
+#include "funciones.h"
 #include <iostream>
 
 using namespace std;
@@ -27,15 +27,19 @@ void TerMax::gasolinerasDelNorte()
             tanque4[j] = tanque1[j];
         }
     }
-
-    ArregloDEgasolinerasN[0] = Gasolinera("bomba1N","12345N","Pedro1N", "norte","35.7749°N,74.0060°W", tanque1);
-    ArregloDEgasolinerasN[1] = Gasolinera("bomba2N","12346N","Pedro2N", "norte","36.7749°N,74.0060°W", tanque2);
-    ArregloDEgasolinerasN[2] = Gasolinera("bomba3N","12347N","Pedro3N", "norte","37.7749°N,74.0060°W", tanque3);
-    ArregloDEgasolinerasN[3] = Gasolinera("bomba4N","12348N","Pedro4N", "norte","38.7749°N,74.0060°W", tanque4);
+    unsigned cantidaDeSurtidores = 2 + (rand() % (11));
+    ArregloDEgasolinerasN[0] = Gasolinera("bomba1N","12345N","Pedro1N", "norte","35.7749°N,74.0060°W", tanque1, cantidaDeSurtidores);
+    cantidaDeSurtidores = 2 + (rand() % (11));
+    ArregloDEgasolinerasN[1] = Gasolinera("bomba2N","12346N","Pedro2N", "norte","36.7749°N,74.0060°W", tanque2, cantidaDeSurtidores);
+    cantidaDeSurtidores = 2 + (rand() % (11));
+    ArregloDEgasolinerasN[2] = Gasolinera("bomba3N","12347N","Pedro3N", "norte","37.7749°N,74.0060°W", tanque3, cantidaDeSurtidores);
+    cantidaDeSurtidores = 2 + (rand() % (11));
+    ArregloDEgasolinerasN[3] = Gasolinera("bomba4N","12348N","Pedro4N", "norte","38.7749°N,74.0060°W", tanque4, cantidaDeSurtidores);
 }
 
 void TerMax::gasolinerasDelCentro()
 {
+    srand(time(0));
     unsigned int tanque1[6], tanque2[6], tanque3[6], tanque4[6], tanque5[6];
     rellenarTanque(tanque1,true); rellenarTanque(tanque2); rellenarTanque(tanque3); rellenarTanque(tanque4); rellenarTanque(tanque5);
     for (int i = 0; i < 3; ++i) {
@@ -47,11 +51,16 @@ void TerMax::gasolinerasDelCentro()
         }
     }
 
-    ArregloDEgasolinerasC[0] = Gasolinera("bomba1C","12345C","Pedro1C", "centro","01.7749°N,74.0060°W", tanque1);
-    ArregloDEgasolinerasC[1] = Gasolinera("bomba2C","12346C","Pedro2C", "centro","02.7749°N,74.0060°W", tanque2);
-    ArregloDEgasolinerasC[2] = Gasolinera("bomba3C","12347C","Pedro3C", "centro","03.7749°N,74.0060°W", tanque3);
-    ArregloDEgasolinerasC[3] = Gasolinera("bomba4C","12348C","Pedro4C", "centro","04.7749°N,74.0060°W", tanque4);
-    ArregloDEgasolinerasC[4] = Gasolinera("bomba5C","12349C","Pedro5C", "centro","05.7749°N,74.0060°W", tanque5);
+    unsigned cantidaDeSurtidores = 2 + (rand() % (11));
+    ArregloDEgasolinerasC[0] = Gasolinera("bomba1C","12345C","Pedro1C", "centro","01.7749°N,74.0060°W", tanque1, cantidaDeSurtidores);
+    cantidaDeSurtidores = 2 + (rand() % (11));
+    ArregloDEgasolinerasC[1] = Gasolinera("bomba2C","12346C","Pedro2C", "centro","02.7749°N,74.0060°W", tanque2, cantidaDeSurtidores);
+    cantidaDeSurtidores = 2 + (rand() % (11));
+    ArregloDEgasolinerasC[2] = Gasolinera("bomba3C","12347C","Pedro3C", "centro","03.7749°N,74.0060°W", tanque3, cantidaDeSurtidores);
+    cantidaDeSurtidores = 2 + (rand() % (11));
+    ArregloDEgasolinerasC[3] = Gasolinera("bomba4C","12348C","Pedro4C", "centro","04.7749°N,74.0060°W", tanque4, cantidaDeSurtidores);
+    cantidaDeSurtidores = 2 + (rand() % (11));
+    ArregloDEgasolinerasC[4] = Gasolinera("bomba5C","12349C","Pedro5C", "centro","05.7749°N,74.0060°W", tanque5, cantidaDeSurtidores);
 }
 
 void TerMax::gasolinerasDelSur()
@@ -65,9 +74,12 @@ void TerMax::gasolinerasDelSur()
         }
     }
 
-    ArregloDEgasolinerasS[0] = Gasolinera("bomba1S","12345S","Pedro1S", "sur","91.7749°N,74.0060°W", tanque1);
-    ArregloDEgasolinerasS[1] = Gasolinera("bomba2S","12346S","Pedro2S", "sur","92.7749°N,74.0060°W", tanque2);
-    ArregloDEgasolinerasS[2] = Gasolinera("bomba3S","12347S","Pedro3S", "sur","93.7749°N,74.0060°W", tanque3);
+    unsigned cantidaDeSurtidores = 2 + (rand() % (11));
+    ArregloDEgasolinerasS[0] = Gasolinera("bomba1S","12345S","Pedro1S", "sur","91.7749°N,74.0060°W", tanque1, cantidaDeSurtidores);
+    cantidaDeSurtidores = 2 + (rand() % (11));
+    ArregloDEgasolinerasS[1] = Gasolinera("bomba2S","12346S","Pedro2S", "sur","92.7749°N,74.0060°W", tanque2, cantidaDeSurtidores);
+    cantidaDeSurtidores = 2 + (rand() % (11));
+    ArregloDEgasolinerasS[2] = Gasolinera("bomba3S","12347S","Pedro3S", "sur","93.7749°N,74.0060°W", tanque3, cantidaDeSurtidores);
 }
 
 void TerMax::rellenarTanque(unsigned int tanque[], bool fijaPrecio)
@@ -148,6 +160,32 @@ void TerMax::cambiarPrecio()
 
     cout <<"\n\nHAS CAMBIADO EXITOSAMENTE EL PRECIO DE LA GASOLINA EN ESTA REGION!\n\n";
     system("pause");
+}
+
+void TerMax::venderGasolina()
+{
+    string region;
+    cout<<"\nEn que region te encuentras?";
+    cout<<"\n1. norte\n2. centro\n3. sur\nElige una opcion (1, 2, o 3): "; cin>>region;
+
+    if (region == "1" || region == "norte"){
+        unsigned int opcion;
+        cout<<"\nEN CUAL ESTACION DE LA REGION norte QUIERES HACER LA COMPRA?";
+        for (unsigned int i = 0; i < siguientePosicionN; ++i) {
+            cout<<"\n"<<i<<". "<<ArregloDEgasolinerasN[i].getNombre();
+        }
+        cout<<"\nElige una opcion (0 a "<<siguientePosicionN-1<<"): "; cin>>opcion;
+
+        if(opcion >= 0 && opcion < siguientePosicionN){
+            unsigned short cantidadSurtidores = ArregloDEgasolinerasN[opcion].getcantidaDeSurtidores();
+            //unsigned short indice = 0 + (rand() % (cantidadSurtidores - 1 ));
+            cout<<"El precio del Regular es: "<<ArregloDEgasolinerasN[opcion].getSurtidores()[0].getTanque()[3]<<endl;
+            ArregloDEgasolinerasN[opcion].imprimir();
+            system("pause");
+            ArregloDEgasolinerasN[opcion].getSurtidores()[0].simularVenta();
+
+        }
+    }
 }
 
 void TerMax::mostrarGasolineras()
@@ -247,20 +285,36 @@ void TerMax::agregarGasolinera()
     cout<<"\nTu nueva gasolinera se acogio a los precios de esta region.\n";
 
     if (region == "norte"){
-        ArregloDEgasolinerasN[siguientePosicionN] = Gasolinera(nom, cod, ger, region, coord, tanqueNuevo);
+        unsigned cantidaDeSurtidores = 2 + (rand() % (11));
+        ArregloDEgasolinerasN[siguientePosicionN] = Gasolinera(nom, cod, ger, region, coord, tanqueNuevo, cantidaDeSurtidores);
         siguientePosicionN += 1;
     }
     else if (region == "centro"){
-        ArregloDEgasolinerasC[siguientePosicionC] = Gasolinera(nom, cod, ger, region, coord, tanqueNuevo);
+        unsigned cantidaDeSurtidores = 2 + (rand() % (11));
+        ArregloDEgasolinerasC[siguientePosicionC] = Gasolinera(nom, cod, ger, region, coord, tanqueNuevo, cantidaDeSurtidores);
         siguientePosicionC += 1;
     }
     else {
-        ArregloDEgasolinerasS[siguientePosicionS] = Gasolinera(nom, cod, ger, region, coord, tanqueNuevo);
+        unsigned cantidaDeSurtidores = 2 + (rand() % (11));
+        ArregloDEgasolinerasS[siguientePosicionS] = Gasolinera(nom, cod, ger, region, coord, tanqueNuevo, cantidaDeSurtidores);
         siguientePosicionS += 1;
     }
 
     cout<<"\nLA NUEVA ESTACION DE COMBUSTIBLE HA SIDO AGREAGADA EXITOSAMENTE!\n\n";
     system("pause");
+}
+
+
+void TerMax::eliminarEstacion()
+{
+    cout<<"\nBuscando estaciones sin surtidores activos en la region Norte...";
+    ArregloDEgasolinerasN = eliminarEstacionDeUnaRegion(ArregloDEgasolinerasN, capacidadN, siguientePosicionN, "Norte");
+    cout<<"\nBuscando estaciones sin surtidores activos en la region Centro...";
+    ArregloDEgasolinerasC = eliminarEstacionDeUnaRegion(ArregloDEgasolinerasC, capacidadC, siguientePosicionC, "Centro");
+    cout<<"\nBuscando estaciones sin surtidores activos en la region Sur...";
+    ArregloDEgasolinerasS = eliminarEstacionDeUnaRegion(ArregloDEgasolinerasS, capacidadS, siguientePosicionS, "Sur");
+
+
 }
 
 
@@ -333,3 +387,24 @@ int TerMax::validarRegion()
     if (region == "3")REGION = 3;
     return REGION;
 }
+
+void TerMax::ventasTotalesPorCaTDeLasES()
+{
+    system("cls");
+    unsigned long int TotalRegion = 0, totalPais = 0;
+    TotalRegion = calcularVentas(ArregloDEgasolinerasN, siguientePosicionN, "norte");
+    cout <<"En la region norte se ha vendido un total de $ "<<TotalRegion<<endl;
+    totalPais += TotalRegion;
+    TotalRegion = calcularVentas(ArregloDEgasolinerasC, siguientePosicionC, "centro");
+    cout <<"En la region centro se ha vendido un total de $ "<<TotalRegion<<endl;
+    totalPais += TotalRegion;
+    TotalRegion = calcularVentas(ArregloDEgasolinerasS, siguientePosicionS, "sur");
+    cout <<"En la region sur se ha vendido un total de $ "<<TotalRegion<<endl;
+    totalPais += TotalRegion;
+
+    cout<<"\nEL MONTO TOTAL DE LAS VENTAS A NIVEL NACIONAL ES: $ "<<totalPais<<endl<<endl;
+    system("pause");
+    system("cls");
+}
+
+TerMax::~TerMax(){delete[] ArregloDEgasolinerasN; delete[] ArregloDEgasolinerasC; delete[] ArregloDEgasolinerasS;}

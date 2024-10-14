@@ -35,6 +35,7 @@ public:
     Gasolinera* getArregloDeGasolineras(string R);
     Gasolinera* getArregloDeGasolinerasC();
     Gasolinera* getArregloDeGasolinerasS();
+    unsigned int getSizeArreglo(string region);
     int validarRegion();
 
     void ventasTotalesPorCaTDeLasES();

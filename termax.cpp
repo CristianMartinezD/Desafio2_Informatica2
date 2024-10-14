@@ -17,7 +17,7 @@ TerMax::TerMax()
 
 void TerMax::gasolinerasDelNorte()
 {
-    unsigned int tanque1[6] = {0,0,0,precioRN,precioEN,precioPN}, tanque2[6], tanque3[6], tanque4[6];
+    unsigned int tanque1[6] /*= {0,0,0,precioRN,precioEN,precioPN}*/, tanque2[6], tanque3[6], tanque4[6];
     srand(time(0));
     rellenarTanque(tanque1,true); rellenarTanque(tanque2); rellenarTanque(tanque3); rellenarTanque(tanque4);
     for (int i = 0; i < 3; ++i) {
@@ -29,12 +29,16 @@ void TerMax::gasolinerasDelNorte()
     }
     unsigned cantidaDeSurtidores = 2 + (rand() % (11));
     ArregloDEgasolinerasN[0] = Gasolinera("bomba1N","12345N","Pedro1N", "norte","35.7749°N,74.0060°W", tanque1, cantidaDeSurtidores);
+    ArregloDEgasolinerasN[0].liberarElTanque();
     cantidaDeSurtidores = 2 + (rand() % (11));
     ArregloDEgasolinerasN[1] = Gasolinera("bomba2N","12346N","Pedro2N", "norte","36.7749°N,74.0060°W", tanque2, cantidaDeSurtidores);
+    ArregloDEgasolinerasN[1].liberarElTanque();
     cantidaDeSurtidores = 2 + (rand() % (11));
     ArregloDEgasolinerasN[2] = Gasolinera("bomba3N","12347N","Pedro3N", "norte","37.7749°N,74.0060°W", tanque3, cantidaDeSurtidores);
+    ArregloDEgasolinerasN[2].liberarElTanque();
     cantidaDeSurtidores = 2 + (rand() % (11));
     ArregloDEgasolinerasN[3] = Gasolinera("bomba4N","12348N","Pedro4N", "norte","38.7749°N,74.0060°W", tanque4, cantidaDeSurtidores);
+    ArregloDEgasolinerasN[3].liberarElTanque();
 }
 
 void TerMax::gasolinerasDelCentro()
@@ -53,14 +57,19 @@ void TerMax::gasolinerasDelCentro()
 
     unsigned cantidaDeSurtidores = 2 + (rand() % (11));
     ArregloDEgasolinerasC[0] = Gasolinera("bomba1C","12345C","Pedro1C", "centro","01.7749°N,74.0060°W", tanque1, cantidaDeSurtidores);
+    ArregloDEgasolinerasC[0].liberarElTanque();
     cantidaDeSurtidores = 2 + (rand() % (11));
     ArregloDEgasolinerasC[1] = Gasolinera("bomba2C","12346C","Pedro2C", "centro","02.7749°N,74.0060°W", tanque2, cantidaDeSurtidores);
+    ArregloDEgasolinerasC[1].liberarElTanque();
     cantidaDeSurtidores = 2 + (rand() % (11));
     ArregloDEgasolinerasC[2] = Gasolinera("bomba3C","12347C","Pedro3C", "centro","03.7749°N,74.0060°W", tanque3, cantidaDeSurtidores);
+    ArregloDEgasolinerasC[2].liberarElTanque();
     cantidaDeSurtidores = 2 + (rand() % (11));
     ArregloDEgasolinerasC[3] = Gasolinera("bomba4C","12348C","Pedro4C", "centro","04.7749°N,74.0060°W", tanque4, cantidaDeSurtidores);
+    ArregloDEgasolinerasC[3].liberarElTanque();
     cantidaDeSurtidores = 2 + (rand() % (11));
     ArregloDEgasolinerasC[4] = Gasolinera("bomba5C","12349C","Pedro5C", "centro","05.7749°N,74.0060°W", tanque5, cantidaDeSurtidores);
+    ArregloDEgasolinerasC[4].liberarElTanque();
 }
 
 void TerMax::gasolinerasDelSur()
@@ -76,10 +85,13 @@ void TerMax::gasolinerasDelSur()
 
     unsigned cantidaDeSurtidores = 2 + (rand() % (11));
     ArregloDEgasolinerasS[0] = Gasolinera("bomba1S","12345S","Pedro1S", "sur","91.7749°N,74.0060°W", tanque1, cantidaDeSurtidores);
+    ArregloDEgasolinerasS[0].liberarElTanque();
     cantidaDeSurtidores = 2 + (rand() % (11));
     ArregloDEgasolinerasS[1] = Gasolinera("bomba2S","12346S","Pedro2S", "sur","92.7749°N,74.0060°W", tanque2, cantidaDeSurtidores);
+    ArregloDEgasolinerasS[1].liberarElTanque();
     cantidaDeSurtidores = 2 + (rand() % (11));
     ArregloDEgasolinerasS[2] = Gasolinera("bomba3S","12347S","Pedro3S", "sur","93.7749°N,74.0060°W", tanque3, cantidaDeSurtidores);
+    ArregloDEgasolinerasS[2].liberarElTanque();
 }
 
 void TerMax::rellenarTanque(unsigned int tanque[], bool fijaPrecio)
@@ -175,14 +187,29 @@ void TerMax::venderGasolina()
             cout<<"\n"<<i<<". "<<ArregloDEgasolinerasN[i].getNombre();
         }
         cout<<"\nElige una opcion (0 a "<<siguientePosicionN-1<<"): "; cin>>opcion;
+        cout<<endl;
 
         if(opcion >= 0 && opcion < siguientePosicionN){
             unsigned short cantidadSurtidores = ArregloDEgasolinerasN[opcion].getcantidaDeSurtidores();
-            //unsigned short indice = 0 + (rand() % (cantidadSurtidores - 1 ));
-            cout<<"El precio del Regular es: "<<ArregloDEgasolinerasN[opcion].getSurtidores()[0].getTanque()[3]<<endl;
-            ArregloDEgasolinerasN[opcion].imprimir();
-            system("pause");
-            ArregloDEgasolinerasN[opcion].getSurtidores()[0].simularVenta();
+
+            unsigned short indiceSurtidor = 0 + (rand() % (cantidadSurtidores - 1 ));
+            bool SiHaySurtiActivos = true;
+            if (!ArregloDEgasolinerasN[opcion].getSurtidores()[indiceSurtidor].VerEstadoDelSurtidor()){
+                SiHaySurtiActivos = false; //Asumimos que no habran surtidores activos
+                for (int i = 0; i < cantidadSurtidores; ++i) {
+                    if (ArregloDEgasolinerasN[opcion].getSurtidores()[i].VerEstadoDelSurtidor()){
+                        indiceSurtidor = i;
+                        SiHaySurtiActivos = true;
+                        break;
+                    }
+                }
+            }
+
+            if(SiHaySurtiActivos){
+                ArregloDEgasolinerasN[opcion].imprimir();
+                system("pause");
+                ArregloDEgasolinerasN[opcion].getSurtidores()[indiceSurtidor].simularVenta();
+            }
 
         }
     }
@@ -211,7 +238,7 @@ Gasolinera *TerMax::getArregloDeGasolineras(string R)
     Gasolinera* DireccioDelArreglo;
     if (R == "norte") DireccioDelArreglo = ArregloDEgasolinerasN;
     else if (R == "centro") DireccioDelArreglo = ArregloDEgasolinerasC;
-    else if (R == "norte") DireccioDelArreglo = ArregloDEgasolinerasS;
+    else if (R == "sur") DireccioDelArreglo = ArregloDEgasolinerasS;
     else DireccioDelArreglo = nullptr;
     return DireccioDelArreglo;
 }
@@ -224,6 +251,13 @@ Gasolinera *TerMax::getArregloDeGasolinerasC()
 Gasolinera *TerMax::getArregloDeGasolinerasS()
 {
     return ArregloDEgasolinerasS;
+}
+
+unsigned int TerMax::getSizeArreglo(string region)
+{
+    if (region == "norte" || region == "1") return siguientePosicionN;
+    else if (region == "centro" || region ==  "2") return siguientePosicionC;
+    else return siguientePosicionS;
 }
 
 
@@ -287,16 +321,19 @@ void TerMax::agregarGasolinera()
     if (region == "norte"){
         unsigned cantidaDeSurtidores = 2 + (rand() % (11));
         ArregloDEgasolinerasN[siguientePosicionN] = Gasolinera(nom, cod, ger, region, coord, tanqueNuevo, cantidaDeSurtidores);
+        ArregloDEgasolinerasN[siguientePosicionN].liberarElTanque();
         siguientePosicionN += 1;
     }
     else if (region == "centro"){
         unsigned cantidaDeSurtidores = 2 + (rand() % (11));
         ArregloDEgasolinerasC[siguientePosicionC] = Gasolinera(nom, cod, ger, region, coord, tanqueNuevo, cantidaDeSurtidores);
+        ArregloDEgasolinerasC[siguientePosicionC].liberarElTanque();
         siguientePosicionC += 1;
     }
     else {
         unsigned cantidaDeSurtidores = 2 + (rand() % (11));
         ArregloDEgasolinerasS[siguientePosicionS] = Gasolinera(nom, cod, ger, region, coord, tanqueNuevo, cantidaDeSurtidores);
+        ArregloDEgasolinerasS[siguientePosicionS].liberarElTanque();
         siguientePosicionS += 1;
     }
 

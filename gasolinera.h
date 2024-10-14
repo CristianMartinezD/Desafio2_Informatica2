@@ -7,11 +7,12 @@ using namespace std;
 class Gasolinera
 {
 private:
-    surtidor surtidores[12];
+    surtidor surtidores [12];
     unsigned short cantidaDeSurtidores;
 
     string nombre, codigo, gerente, region, coordenadas;
-    unsigned int tanque[6];
+    unsigned int* tanque = new unsigned int [6];
+    bool liberarTanque = false;
 public:
     Gasolinera();
     Gasolinera(string nombre, string _codigo, string _gerente, string _region, string _coordenadas, unsigned int _tanque[6], unsigned short _cantidaDeSurtidores);
@@ -19,6 +20,7 @@ public:
     unsigned int* retornarTanque();
     string getNombre();
     unsigned short getcantidaDeSurtidores();
+    void liberarElTanque();
 
     surtidor* getSurtidores();
     ~Gasolinera();

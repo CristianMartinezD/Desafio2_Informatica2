@@ -2,6 +2,62 @@
 #include <iostream>
 #include "gasolinera.h"
 
+
+/* MENU PARA GESTIONAR ESTACIONES DE SERVICIO*/
+
+void MenuDeEstaciones(TerMax &gasolinerasDelPais){
+
+    unsigned short int opcion = 12;
+    do{
+        //system("cls");
+        cout << "\n---- MENU PARA GESTIONAR ESTACIONES ----\n";
+        cout << "1. Agregar/Eliminar un Surtidor de una E/S\n";
+        cout << "2. Activar/Desactivar un Surtidor de una E/S\n";
+        cout << "3. Consultar el historico de transacciones de cada Surtidor de la E/S\n";
+        cout << "4. Reportar la cantidad de litros vendida segun cada categoria de combustible\n";
+        cout << "5. Simular Venta de Combustible\n";
+        cout << "6. Asignar capacidad del tanque con valor aleatorio entre 100 y 200 Lt\n";
+        cout << "7. Salir\n";
+        cout<<"\nIngresa una de las anteriores opciones (1, 2, 3, 4, 5, 6, o 7): "; cin >> opcion;
+        switch(opcion) {
+            case 1: {
+                string region;
+                cout << "\nDe cual region es la estacion a la cual le agregaras/quitaras un surtidor?";
+                cout << "\n1. norte\n2. centro\n3. sur";
+                cout<<"\nIngresa una de las anteriores opciones (1, 2, o 3): "; cin >> region;
+                unsigned int tamanoArreglo = gasolinerasDelPais.getSizeArreglo(region);
+                if (region == "1" || region == "norte") {agregarSurtidor(gasolinerasDelPais.getArregloDeGasolineras("norte"), "norte", tamanoArreglo); break;}
+                else if (region == "2" || region == "centro") {agregarSurtidor(gasolinerasDelPais.getArregloDeGasolineras("centro"), "centro", tamanoArreglo); break;}
+                else if (region == "3" || region == "sur") {agregarSurtidor(gasolinerasDelPais.getArregloDeGasolineras("sur"), "sur", tamanoArreglo); break;}
+                else {cout << "REGION INVALIDA.\n"; break;}
+            }
+
+            case 2: {gasolinerasDelPais.eliminarEstacion(); break;}
+            case 3: {gasolinerasDelPais.ventasTotalesPorCaTDeLasES(); break;}
+            case 4: {gasolinerasDelPais.mostrarGasolineras(); break;}
+            case 5: {gasolinerasDelPais.cambiarPrecio(); break;}
+            case 6: {gasolinerasDelPais.venderGasolina(); break;}
+            case 7: break;
+            default:
+                cout << "Opcion invalida, intente nuevamente.\n";
+        }
+    }while (opcion != 7);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 string validarCategoria()
 {
     string categoria;
@@ -98,4 +154,41 @@ unsigned long int calcularVentas(Gasolinera* ArregloDEgasolineras, unsigned int&
     }
 
     return TotalRegion;
+}
+
+
+
+void agregarSurtidor(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo)
+{
+    system("cls");
+    cout << "\nESTA ES LA LISTA DE GASOLINERAS DE LA REGION "<<region<<":";
+    for (unsigned int i = 0; i < tamanoArreglo; ++i){
+        cout <<"\n"<<i<<". "<<ArregloDeGasolineras[i].getNombre();
+    }
+    unsigned int opcion;
+    do{
+        cout << "\nIngresa el numero de la gasolinera donde quieres agregar el surtidor (0 a "<<tamanoArreglo-1<<"): "; cin>>opcion;
+        if (opcion < 0 || opcion > tamanoArreglo-1){
+            cout<<"\nEse indice no corresponde a ninguna de las gasolineras que te mostre!";
+        }
+    }while (opcion < 0 || opcion > tamanoArreglo-1);
+
+    // AQUI OBTENGO UN SURTIDOR DE LA GASOLINERA EN LA POSICION opcion.
+    unsigned short stposicion = ArregloDeGasolineras[opcion].getcantidaDeSurtidores();
+
+
+    //En la siguiente posicion del arreglo de surtidores meto un nuevo surtidor.
+    //Este nuevo surtidor será creado llamando al constructor de copia de la clase surtidor.
+    if (stposicion < 12){
+        ArregloDeGasolineras[opcion].getSurtidores()[stposicion] = surtidor(ArregloDeGasolineras[opcion].getSurtidores()[0]);
+        cout<<"\nSURTIDOR AGREGADO EXITOSAMENTE!\n";
+        ArregloDeGasolineras[opcion].getSurtidores()[stposicion].imprimirAtributosDelSurtidor();
+        system("pause");
+        system("cls");
+    }
+    else {
+        cout << "\nEn esta gasolinera no se puede agregar mas surtidores ya que tiene el tope maximo de surtidores que puede tener\n";
+        system("pause");
+        system("cls");
+    }
 }

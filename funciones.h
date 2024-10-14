@@ -10,4 +10,8 @@ Gasolinera* eliminarEstacionDeUnaRegion(Gasolinera* ArregloDEgasolineras, unsign
 
 unsigned long int calcularVentas(Gasolinera* ArregloDEgasolineras, unsigned int& sigtPosicion, string region);
 
+void MenuDeEstaciones(TerMax &gasolinerasDelPais);
+
+void agregarSurtidor(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
+
 #endif // FUNCIONES_H

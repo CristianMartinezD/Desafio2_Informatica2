@@ -14,8 +14,21 @@ surtidor::surtidor(unsigned int* DireccionTanque, surtidor *_DireccionDeSurtidor
     tanque = DireccionTanque;
     DireccionDeSurtidores = _DireccionDeSurtidores;
     cantidaDeSurtidores = _cantidaDeSurtidores;
-    if (tanque[0] == 0 && tanque[1] == 0 && tanque[2] == 0) surtidorActivo = false;
-    else surtidorActivo = true;
+    codigoDeLsurtidor = "C" + to_string(40102 + (rand() % (50102 - 40102)));
+    modelo = "surti" + to_string(1 + (rand() % (5)));
+    if (tanque[0] == 0 && tanque[1] == 0 && tanque[2] == 0) EstadoDelSurtidor = false;
+    else EstadoDelSurtidor = true;
+}
+
+surtidor::surtidor(const surtidor &Acopiar)
+{
+    tanque = Acopiar.tanque;
+    codigoDeLsurtidor = "C" + to_string(40102 + (rand() % (50102 - 40102)));
+    modelo = "surti" + to_string(1 + (rand() % (5)));
+    DireccionDeSurtidores = Acopiar.DireccionDeSurtidores;
+    cantidaDeSurtidores = Acopiar.cantidaDeSurtidores;
+    if (tanque[0] == 0 && tanque[1] == 0 && tanque[2] == 0) EstadoDelSurtidor = false;
+    else EstadoDelSurtidor = true;
 }
 
 void surtidor::simularVenta()
@@ -150,7 +163,12 @@ void surtidor::simularVenta()
 
 void surtidor::CambiarEstadoDelSurtidor(bool estado)
 {
-    surtidorActivo = estado;
+    EstadoDelSurtidor = estado;
+}
+
+bool surtidor::VerEstadoDelSurtidor()
+{
+    return EstadoDelSurtidor;
 }
 
 unsigned int surtidor::getVentas(string categoria)
@@ -164,6 +182,19 @@ unsigned int surtidor::getVentas(string categoria)
 unsigned int *surtidor::getTanque()
 {
     return tanque;
+}
+
+void surtidor::imprimirAtributosDelSurtidor()
+{
+    cout <<"\nINFORMACION DEL SURTIDOR:";
+    cout <<"\nCodigo: "<<codigoDeLsurtidor;
+    cout <<"\nModelo: "<<modelo;
+    if (EstadoDelSurtidor) cout <<"\nEstado: Activo";
+    else cout <<"\nEstado: Desactivado";
+    cout <<"\nEl tanque al que esta conectado este surtidor cuenta con:";
+    cout<<"\nRegular: "<<tanque[0]<<" Lt";
+    cout<<"\nRegular: "<<tanque[1]<<" Lt";
+    cout<<"\nRegular: "<<tanque[2]<<" Lt"<<endl;
 }
 
 surtidor::~surtidor(){}

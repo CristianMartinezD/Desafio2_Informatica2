@@ -46,12 +46,25 @@ unsigned short Gasolinera::getcantidaDeSurtidores()
     return cantidaDeSurtidores;
 }
 
+
 surtidor *Gasolinera::getSurtidores()
 {
     return surtidores;
 }
 
+
+void Gasolinera::liberarElTanque()
+{
+    liberarTanque = true;
+}
+
+
 Gasolinera::~Gasolinera()
 {
-
+    if (liberarTanque == true){
+        delete [] tanque;
+        cout<<"\nTanque Liberado\n";
+        system("pause");
+    }
+    cout<<"\nLlamando al destructor de la gasolinera\n";
 }

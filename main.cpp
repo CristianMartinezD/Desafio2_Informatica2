@@ -9,11 +9,10 @@ void menuDeGasolineras(TerMax& gasolineras);
 
 int main() {
     TerMax gasolinerasDelPais;
-    unsigned int Tanque[6] = {10000, 20000, 30000, 5000, 6000, 7000};
-    surtidor* surtidores30 = new surtidor[12];
+    MenuDeEstaciones(gasolinerasDelPais);
 
     unsigned short int opcion = 12;
-    surtidores30[0] = surtidor(Tanque, surtidores30, opcion);
+    //surtidores30[0] = surtidor(Tanque, surtidores30, opcion);
     do{
         //system("cls");
         cout << "\n---- MENU PARA GESTIONAR LA RED ----\n";
@@ -40,6 +39,6 @@ int main() {
         }
     }while (opcion != 8);
 
-    delete[] surtidores30;
+    //delete[] surtidores30;
     return 0;
 }

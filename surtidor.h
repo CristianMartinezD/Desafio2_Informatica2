@@ -25,6 +25,8 @@ public:
     bool VerEstadoDelSurtidor();
     unsigned int getVentas(string categoria);
     unsigned int* getTanque();
+    string getcodigoDeLsurtidor();
+    string getRegistroDeVentas();
 
     void imprimirAtributosDelSurtidor();
 

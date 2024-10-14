@@ -208,6 +208,7 @@ void TerMax::venderGasolina()
             if(SiHaySurtiActivos){
                 ArregloDEgasolinerasN[opcion].imprimir();
                 system("pause");
+                cout<<"\nTu vehiculo ha sido despachado por el surtidor: "<<ArregloDEgasolinerasN[opcion].getSurtidores()[indiceSurtidor].getcodigoDeLsurtidor()<<endl;
                 ArregloDEgasolinerasN[opcion].getSurtidores()[indiceSurtidor].simularVenta();
             }
 

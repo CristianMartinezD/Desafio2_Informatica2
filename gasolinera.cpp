@@ -41,8 +41,10 @@ string Gasolinera::getNombre()
     return nombre;
 }
 
-unsigned short Gasolinera::getcantidaDeSurtidores()
+unsigned short Gasolinera::getcantidaDeSurtidores(string modificar)
 {
+    if (modificar == "+") ++cantidaDeSurtidores;
+    if (modificar == "-") --cantidaDeSurtidores;
     return cantidaDeSurtidores;
 }
 
@@ -56,6 +58,27 @@ surtidor *Gasolinera::getSurtidores()
 void Gasolinera::liberarElTanque()
 {
     liberarTanque = true;
+}
+
+unsigned long Gasolinera::actualizarTotalVentas()
+{
+    for (int i = 0; i < cantidaDeSurtidores; ++i){
+        totalVentas += surtidores[i].getVentas("Todas");
+    }
+    return totalVentas;
+}
+
+void Gasolinera::historialTransaciones()
+{
+    string ventasDeEstaEstacion = "";
+    for (int i = 0; i < cantidaDeSurtidores; ++i) {
+        if (surtidores[i].getRegistroDeVentas() != "") ventasDeEstaEstacion += surtidores[i].getRegistroDeVentas() + "\n";
+    }
+    cout<<"\nEL HISTORIAL DE TRANSACCIONES DE LA ESTACION "<<nombre<<" ES:\n";
+    if (ventasDeEstaEstacion != "") cout<<ventasDeEstaEstacion<<endl;
+    else cout<<"\n  EN ESTA ESTACION NO SE HA VENDIDO NADA TODAVIA! :(\n\n";
+    system("pause");
+    system("cls");
 }
 
 

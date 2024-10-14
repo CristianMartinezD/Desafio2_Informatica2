@@ -12,6 +12,8 @@ unsigned long int calcularVentas(Gasolinera* ArregloDEgasolineras, unsigned int&
 
 void MenuDeEstaciones(TerMax &gasolinerasDelPais);
 
-void agregarSurtidor(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
+void agregarYQitarSurtidor(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
+void activarYDesactivarSurtidor(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
+void verHistoricoDeVentaDeUnaEstacion(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
 
 #endif // FUNCIONES_H

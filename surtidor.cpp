@@ -57,7 +57,7 @@ void surtidor::simularVenta()
         metodoDePago = "TDebito";
     }
     
-    
+
     if (categoria == "1") {
         categoria = "Regular";
         if (cantidad_comprada <= tanque[0] && tanque[0] > 0){
@@ -135,7 +135,7 @@ void surtidor::simularVenta()
     strftime(buffer, sizeof(buffer), "%d/%m/%Y %H:%M:%S", tiempo_local);
     string fechaYhora = buffer;
     
-    string EstaVenta = "\n  Cliente: " + ccDelCliente + "\n  Categoria: " + categoria + "\n  Metodo De Pago: " + metodoDePago + "\n  Cantidad: " + to_string(cantidad_comprada) + " Lt\n  Costo Total: " + to_string(costoT) + " COP (" + costoL + "/Lt Hoy)";
+    string EstaVenta = "\nSurtidor: " + codigoDeLsurtidor + "\n  Cliente: " + ccDelCliente + "\n  Categoria: " + categoria + "\n  Metodo De Pago: " + metodoDePago + "\n  Cantidad: " + to_string(cantidad_comprada) + " Lt\n  Costo Total: " + to_string(costoT) + " COP (" + costoL + "/Lt Hoy)";
     
     cout << "\nFECHA Y HORA: "+fechaYhora<<"\n\n      RESUMEN DE LA VENTA:";
     // DECORACION
@@ -176,12 +176,23 @@ unsigned int surtidor::getVentas(string categoria)
     if (categoria == "Regular") return saldoVentasR;
     else if (categoria == "EcoExtra") return saldoVentasE;
     else if (categoria == "Premium") return saldoVentasP;
+    else if (categoria == "Todas") return saldoVentasR + saldoVentasE + saldoVentasP;
     else return 0;
 }
 
 unsigned int *surtidor::getTanque()
 {
     return tanque;
+}
+
+string surtidor::getcodigoDeLsurtidor()
+{
+    return codigoDeLsurtidor;
+}
+
+string surtidor::getRegistroDeVentas()
+{
+    return registroDeVentas;
 }
 
 void surtidor::imprimirAtributosDelSurtidor()

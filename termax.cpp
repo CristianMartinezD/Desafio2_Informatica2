@@ -124,6 +124,7 @@ void TerMax::rellenarTanque(unsigned int tanque[], bool fijaPrecio)
 
 void TerMax::cambiarPrecio()
 {
+    cout << "\n---- VAMOS A FIJAR EL PRECIO DEL COMBUSTIBLE ----\n";
     unsigned int nuevo_precio, tamano; Gasolinera *ArregloDEgasolineras;
     int region = validarRegion();
 
@@ -305,7 +306,6 @@ void TerMax::agregarGasolinera()
 
 void TerMax::eliminarEstacion()
 {
-    cout<<"\nBuscando estaciones sin surtidores activos en la region Norte...";
     ArregloDEgasolinerasN = eliminarEstacionDeUnaRegion(ArregloDEgasolinerasN, capacidadN, siguientePosicionN, "Norte");
     cout<<"\nBuscando estaciones sin surtidores activos en la region Centro...";
     ArregloDEgasolinerasC = eliminarEstacionDeUnaRegion(ArregloDEgasolinerasC, capacidadC, siguientePosicionC, "Centro");
@@ -389,6 +389,7 @@ int TerMax::validarRegion()
 void TerMax::ventasTotalesPorCaTDeLasES()
 {
     system("cls");
+    cout << "\n---- VAMOS A CALCULAR LAS VENTAS TOTALES ----\n";
     unsigned long int TotalRegion = 0, totalPais = 0;
     TotalRegion = calcularVentas(ArregloDEgasolinerasN, siguientePosicionN, "norte");
     cout <<"En la region norte se ha vendido un total de $ "<<TotalRegion<<endl;

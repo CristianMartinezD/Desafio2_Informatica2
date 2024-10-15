@@ -9,7 +9,9 @@ class Gasolinera
 private:
     surtidor surtidores [12];
     unsigned short cantidaDeSurtidores;
-    unsigned long int totalVentas = 0;
+    unsigned long int totalSaldoVentas = 0;
+    unsigned long int loQueQuedaEnElTanque = 0;
+    unsigned int capacidadDelTanque; float TotalR, TotalE, TotalP;
 
     string nombre, codigo, gerente, region, coordenadas;
     unsigned int* tanque = new unsigned int [6];
@@ -24,7 +26,9 @@ public:
     void liberarElTanque();
     unsigned long int actualizarTotalVentas();
     void historialTransaciones();
-    void imprimirLitrosVendidos();
+    unsigned int imprimirLitrosVendidos(bool imprimir = true);
+    unsigned int verCapacidadDelTanque(unsigned int nuevoValor = 0);
+    void detectarFugas();
 
     surtidor* getSurtidores();
     ~Gasolinera();

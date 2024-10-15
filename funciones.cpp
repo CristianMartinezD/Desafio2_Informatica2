@@ -17,8 +17,9 @@ unsigned short MenuDeEstaciones(TerMax &gasolinerasDelPais){
         cout << "4. Reportar la cantidad de litros vendida segun cada categoria de combustible\n";
         cout << "5. Simular Venta de Combustible\n";
         cout << "6. Asignar capacidad del tanque con valor aleatorio entre 100 y 200 Lt\n";
-        cout << "7. Volver al menu de la red nacional\n";
-        cout << "8. Salir\n";
+        cout << "7. Detectar fugas de combustible en alguna estacion de la red nacional\n";
+        cout << "8. Volver al menu de la red nacional\n";
+        cout << "9. Salir\n";
         cout<<"\nIngresa una de las anteriores opciones (1, 2, 3, 4, 5, 6, 7, o 8): "; cin >> opcion;
         switch(opcion) {
             case 1: {
@@ -94,12 +95,24 @@ unsigned short MenuDeEstaciones(TerMax &gasolinerasDelPais){
                 else if (region == "3" || region == "sur") {AsignarCapacidadDelTanque(gasolinerasDelPais.getArregloDeGasolineras("sur"), "sur", tamanoArreglo); break;}
                 else {cout << "REGION INVALIDA.\n"; break;}
             }
-            case 7: return 0;
-            case 8: return 9;
+            case 7: {
+                string region;
+                cout<<"\nEn que region se encuentra la gasalinera a la cual queremos consultar si presenta alguna fuga?";
+                cout << "\n1. norte\n2. centro\n3. sur";
+                cout<<"\nIngresa una de las anteriores opciones (1, 2, o 3): "; cin >> region;
+                unsigned int tamanoArreglo = gasolinerasDelPais.getSizeArreglo(region);
+
+                if (region == "1" || region == "norte") {detectarFugas(gasolinerasDelPais.getArregloDeGasolineras("norte"), "norte", tamanoArreglo); break;}
+                else if (region == "2" || region == "centro") {detectarFugas(gasolinerasDelPais.getArregloDeGasolineras("centro"), "centro", tamanoArreglo); break;}
+                else if (region == "3" || region == "sur") {detectarFugas(gasolinerasDelPais.getArregloDeGasolineras("sur"), "sur", tamanoArreglo); break;}
+                else {cout << "REGION INVALIDA.\n"; break;}
+            }
+            case 8: return 0;
+            case 9: return 7;
             default:
                 cout << "Opcion invalida, intente nuevamente.\n";
         }
-    }while (opcion != 7);
+    }while (opcion != 8);
     return 0;
 }
 
@@ -144,14 +157,24 @@ string validarCategoria()
 
 void pedir_datos_del_client(string &ccDelCliente, unsigned int &cantidad_comprada, string &metodoDePago, string &categoria)
 {
+    int num;
     cout <<"\nCual es su cedula: "; cin >> ccDelCliente;
-    cout <<"\nQue categoria de combustible va a comprar: ";
-    cout <<"\n1. Regular\n2. EcoExtra\n3. Premium";
-    cout <<"\nIngresa (1, 2, o 3): "; cin >> categoria;
-    cout <<"\nCuantos litros deseas comprar: "; cin >> cantidad_comprada;
-    cout <<"\nCual sera el metodo de pago?";
-    cout <<"\n1. Efectivo\n2. TCredito\n3. TDebito";
-    cout <<"\nIngresa (1, 2, o 3): "; cin >> metodoDePago;
+    do{
+        cout <<"\nQue categoria de combustible va a comprar: ";
+        cout <<"\n1. Regular\n2. EcoExtra\n3. Premium";
+        cout <<"\nIngresa (1, 2, o 3): "; cin >> categoria;
+        cout <<"\nCuantos litros deseas comprar: "; cin >> num;
+        cantidad_comprada = num;
+        cout <<"\nCual sera el metodo de pago?";
+        cout <<"\n1. Efectivo\n2. TCredito\n3. TDebito";
+        cout <<"\nIngresa (1, 2, o 3): "; cin >> metodoDePago;
+
+        if ((categoria != "1" && categoria != "2" && categoria != "3") ||
+            (metodoDePago != "1" && metodoDePago != "2" && metodoDePago != "3") ||  num < 1){
+            cout <<"\nUPS! PARECE QUE NO INGRESASTE UN DATO CORRECTO, VUELVE A INTENTARLO";
+        }
+    }while((categoria != "1" && categoria != "2" && categoria != "3") ||
+             (metodoDePago != "1" && metodoDePago != "2" && metodoDePago != "3") ||  num < 1);
 }
 
 
@@ -159,6 +182,7 @@ void pedir_datos_del_client(string &ccDelCliente, unsigned int &cantidad_comprad
 Gasolinera *eliminarEstacionDeUnaRegion(Gasolinera *ArregloDEgasolineras, unsigned int &capacidad, unsigned int &sigtPosicion, string region)
 {
     system("cls");
+    cout<<"\nBuscando estaciones sin surtidores activos en la region "<<region<<"...\n";
     string respuesta;
     for (unsigned short i = 0; i < sigtPosicion; ++i) {
         if (ArregloDEgasolineras[i].getTanque()[0] == 0 &&
@@ -189,7 +213,7 @@ Gasolinera *eliminarEstacionDeUnaRegion(Gasolinera *ArregloDEgasolineras, unsign
             else {cout<<"\nOK, ESA ESTACION SEGUIRA EXISTIENDO...\n"; return ArregloDEgasolineras;}
         }
     }
-    cout<<"\nNO HAY ESTACIONES PARA ELIMINAR EN LA REGION "<<region<<endl;
+    cout<<"\nNO HAY ESTACIONES PARA ELIMINAR EN LA REGION "<<region<<endl<<endl;
     system("pause");
     system("cls");
 
@@ -201,18 +225,22 @@ unsigned long int calcularVentas(Gasolinera* ArregloDEgasolineras, unsigned int&
     unsigned long int TotalRegion = 0;
     cout<<"\nLAS VENTAS EN LA REGION "<<region<<" SON:\n";
 
-    for (unsigned int i = 0; i < sigtPosicion; ++i){//Iteramos sobre todoas las gasolineras.
+    for (unsigned int i = 0; i < sigtPosicion; ++i){//Iteramos sobre todas las gasolineras.
         cout<<ArregloDEgasolineras[i].getNombre()<<".";
-        unsigned int Regular = ArregloDEgasolineras[i].getSurtidores()->getSaldoVentas("Regular");
-        unsigned int EcoExtra = ArregloDEgasolineras[i].getSurtidores()->getSaldoVentas("EcoExtra");
-        unsigned int Premium = ArregloDEgasolineras[i].getSurtidores()->getSaldoVentas("Premium");
+        unsigned int Regular = 0;
+        unsigned int EcoExtra = 0;
+        unsigned int Premium = 0;
+        for (unsigned short j = 0; j < ArregloDEgasolineras[i].getcantidaDeSurtidores(); ++j) {
+            Regular += ArregloDEgasolineras[i].getSurtidores()[j].getSaldoVentas("Regular");
+            EcoExtra += ArregloDEgasolineras[i].getSurtidores()[j].getSaldoVentas("EcoExtra");
+            Premium += ArregloDEgasolineras[i].getSurtidores()[j].getSaldoVentas("Premium");
+        }
         cout<<"\nRegular:  $ "<<Regular;
         cout<<"\nEcoExtra: $ "<<EcoExtra;
         cout<<"\nPremium:  $ "<<Premium;
         cout<<"\nTotal:    $ "<<Regular + EcoExtra + Premium<<endl<<endl;
         TotalRegion += ArregloDEgasolineras[i].actualizarTotalVentas(); // Se retorna totalVentas de la gasolinera en la posicion i
     }
-
     return TotalRegion;
 }
 
@@ -473,7 +501,38 @@ void AsignarCapacidadDelTanque(Gasolinera *ArregloDeGasolineras, string region, 
         }
     }while (indice < 0 || indice > tamanoArreglo-1);
 
-    ArregloDeGasolineras[indice].getTanque()[0] = 100 + (rand() % (199));
-    ArregloDeGasolineras[indice].getTanque()[1] = 100 + (rand() % (199));
-    ArregloDeGasolineras[indice].getTanque()[2] = 100 + (rand() % (199));
+    unsigned int nuevaCapacidad = ArregloDeGasolineras[indice].verCapacidadDelTanque(100 + (rand() % (201-100)));
+
+    unsigned int Regular = 20 + (rand() % ((1+nuevaCapacidad/2)-20));
+    unsigned int EcoExtra = 20 + (rand() % ((nuevaCapacidad - Regular)-20));
+    unsigned int Premium = nuevaCapacidad - (Regular + EcoExtra);
+
+    ArregloDeGasolineras[indice].getTanque()[0] = Regular;
+    ArregloDeGasolineras[indice].getTanque()[1] = EcoExtra;
+    ArregloDeGasolineras[indice].getTanque()[2] = Premium;
+
+    cout<<"\nLOS NUEVOS DATOS DEL TANQUE DE LA GASOLINERA "<<ArregloDeGasolineras[indice].getNombre()<<" SON:\n";
+    cout<<"Nueva capacidad: "<<nuevaCapacidad<<" Lt"<<endl;
+    cout<<"Cantidad Regular:  "<<ArregloDeGasolineras[indice].getTanque()[0]<<" Lt disponibles"<<endl;
+    cout<<"Cantidad EcoExtra: "<<ArregloDeGasolineras[indice].getTanque()[1]<<" Lt disponibles"<<endl;
+    cout<<"Cantidad Premium:  "<<ArregloDeGasolineras[indice].getTanque()[2]<<" Lt disponibles"<<endl<<endl;
+    system("pause");
+}
+
+void detectarFugas(Gasolinera *ArregloDeGasolineras, string region, unsigned int tamanoArreglo)
+{
+    system("cls");
+    cout << "\nESTA ES LA LISTA DE GASOLINERAS DE LA REGION "<<region<<":";
+    for (unsigned int i = 0; i < tamanoArreglo; ++i){
+        cout <<"\n"<<i<<". "<<ArregloDeGasolineras[i].getNombre();
+    }
+    unsigned int indice;
+    do{
+        cout << "\nIngresa el numero de la gasolinera a la cual miraremos si presenta fugas (0 a "<<tamanoArreglo-1<<"): "; cin>>indice;
+        if (indice < 0 || indice > tamanoArreglo-1){
+            cout<<"\nEse indice no corresponde a ninguna de las gasolineras que te mostre!";
+        }
+    }while (indice < 0 || indice > tamanoArreglo-1);
+
+    ArregloDeGasolineras[indice].detectarFugas();
 }

@@ -17,6 +17,9 @@ Gasolinera::Gasolinera(string _nombre, string _codigo, string _gerente, string _
     tanque[3] = _tanque[3];
     tanque[4] = _tanque[4];
     tanque[5] = _tanque[5];
+    capacidadDelTanque = tanque[0] + tanque[1] + tanque[2];
+    TotalR = tanque[0]; TotalE = tanque[1]; TotalP = tanque[2];
+
     cantidaDeSurtidores = _cantidaDeSurtidores;
 
     for (int i = 0; i < cantidaDeSurtidores; ++i) {
@@ -63,9 +66,9 @@ void Gasolinera::liberarElTanque()
 unsigned long Gasolinera::actualizarTotalVentas()
 {
     for (int i = 0; i < cantidaDeSurtidores; ++i){
-        totalVentas += surtidores[i].getSaldoVentas("Todas");
+        totalSaldoVentas += surtidores[i].getSaldoVentas("Todas");
     }
-    return totalVentas;
+    return totalSaldoVentas;
 }
 
 void Gasolinera::historialTransaciones()
@@ -81,7 +84,7 @@ void Gasolinera::historialTransaciones()
     system("cls");
 }
 
-void Gasolinera::imprimirLitrosVendidos()
+unsigned int Gasolinera::imprimirLitrosVendidos(bool imprimir)
 {
     unsigned int TotalVentasR = 0, TotalVentasE = 0, TotalVentasP = 0;
     string ventasDeEstaEstacion = "";
@@ -90,12 +93,46 @@ void Gasolinera::imprimirLitrosVendidos()
         TotalVentasE += surtidores[i].getCantidadVentas("EcoExtra");
         TotalVentasP += surtidores[i].getCantidadVentas("Premium");
     }
-    cout<<"\nEN LA ESTACION "<<nombre<<" SE HA VENDIDO LA SIGUIENTE CANTIDAD DE COMBUSTIBLE:";
-    cout<<"\nRegular:  "<<TotalVentasR;
-    cout<<"\nEcoExtra: "<<TotalVentasE;
-    cout<<"\nPremium:  "<<TotalVentasP<<endl;
+    if(imprimir == true){
+        cout<<"\nEN LA ESTACION "<<nombre<<" SE HA VENDIDO LA SIGUIENTE CANTIDAD DE COMBUSTIBLE:";
+        cout<<"\nRegular:  "<<TotalVentasR;
+        cout<<"\nEcoExtra: "<<TotalVentasE;
+        cout<<"\nPremium:  "<<TotalVentasP<<endl;
+        system("pause");
+        system("cls");
+    }
+    return (TotalVentasR + TotalVentasE + TotalVentasP);
+}
+
+unsigned int Gasolinera::verCapacidadDelTanque(unsigned int nuevoValor)
+{
+    if(nuevoValor != 0) capacidadDelTanque = nuevoValor;
+    return capacidadDelTanque;
+}
+
+void Gasolinera::detectarFugas()
+{
+    unsigned int TotalVentasR = 0, TotalVentasE = 0, TotalVentasP = 0;
+    for (int i = 0; i < cantidaDeSurtidores; ++i) {
+        TotalVentasR += surtidores[i].getCantidadVentas("Regular");
+        TotalVentasE += surtidores[i].getCantidadVentas("EcoExtra");
+        TotalVentasP += surtidores[i].getCantidadVentas("Premium");
+    }
+
+    cout<<"\nDETALLES SOBRE EL COMBUSTIBLE EN ESTA GASOLINERA, "<<nombre<<":\n";
+    cout<<"\n Capacidad Total de Regular:......................... "<<TotalR<<" Litros";
+    cout<<"\n Regular Vendido + Regular en tanque:..... "<<TotalVentasR<<" + "<<tanque[0]<<": "<<TotalVentasR + tanque[0]<<" Litros";
+    cout<<"\n\n Capacidad Total de EcoExtra:........................ "<<TotalE<<" Litros";
+    cout<<"\n EcoExtra Vendido + EcoExtra en tanque:... "<<TotalVentasE<<" + "<<tanque[1]<<": "<<TotalVentasE + tanque[1]<<" Litros";
+    cout<<"\n\n Capacidad Total de Premium:......................... "<<TotalP<<" Litros";
+    cout<<"\n Premium Vendido + Premium en tanque:...... "<<TotalVentasP<<" + "<<tanque[3]<<": "<<TotalVentasP + tanque[2]<<" Litros";
+
+    if ((TotalVentasR + tanque[0]) < 0.95*TotalR) cout<<"\n\nLA GASOLINERA "<<nombre<<" ESTA PRESENTANDO UNA FUGA POR EL COMPARTIMENTO DEL COMBUSTIBLE REGULAR!";
+    else if ((TotalVentasE + tanque[1]) < 0.95*TotalE) cout<<"\n\nLA GASOLINERA "<<nombre<<" ESTA PRESENTANDO UNA FUGA POR EL COMPARTIMENTO DEL COMBUSTIBLE EcoExtra!";
+    else if ((TotalVentasP + tanque[2]) < 0.95*TotalP) cout<<"\n\nLA GASOLINERA "<<nombre<<" ESTA PRESENTANDO UNA FUGA POR EL COMPARTIMENTO DEL COMBUSTIBLE Premium!";
+    else cout<<"\n\nLA GASOLINERA "<<nombre<<" NO TIENE NINGUNA FUGA DE COMBUSTIBLE!\n\n";
     system("pause");
-    system("cls");
+
 }
 
 

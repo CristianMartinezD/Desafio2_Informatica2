@@ -18,5 +18,7 @@ void verHistoricoDeVentaDeUnaEstacion(Gasolinera* ArregloDeGasolineras, string r
 void reportarLitrosVendidos(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
 void venderGasolina(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
 void AsignarCapacidadDelTanque(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
+void detectarFugas(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
+
 
 #endif // FUNCIONES_H

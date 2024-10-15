@@ -10,10 +10,13 @@ Gasolinera* eliminarEstacionDeUnaRegion(Gasolinera* ArregloDEgasolineras, unsign
 
 unsigned long int calcularVentas(Gasolinera* ArregloDEgasolineras, unsigned int& sigtPosicion, string region);
 
-void MenuDeEstaciones(TerMax &gasolinerasDelPais);
+unsigned short MenuDeEstaciones(TerMax &gasolinerasDelPais);
 
 void agregarYQitarSurtidor(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
 void activarYDesactivarSurtidor(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
 void verHistoricoDeVentaDeUnaEstacion(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
+void reportarLitrosVendidos(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
+void venderGasolina(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
+void AsignarCapacidadDelTanque(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
 
 #endif // FUNCIONES_H

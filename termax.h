@@ -28,8 +28,6 @@ public:
     void rellenarTanque(unsigned int tanque[], bool fijaPrecio = false);
     void cambiarPrecio();
 
-    void venderGasolina();
-
     void mostrarGasolineras();
 
     Gasolinera* getArregloDeGasolineras(string R);

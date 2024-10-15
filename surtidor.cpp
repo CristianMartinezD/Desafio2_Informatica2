@@ -26,19 +26,17 @@ surtidor::surtidor(const surtidor &Acopiar)
     codigoDeLsurtidor = "C" + to_string(40102 + (rand() % (50102 - 40102)));
     modelo = "surti" + to_string(1 + (rand() % (5)));
     DireccionDeSurtidores = Acopiar.DireccionDeSurtidores;
-    cantidaDeSurtidores = Acopiar.cantidaDeSurtidores;
+    cantidaDeSurtidores = Acopiar.cantidaDeSurtidores + 1;
     if (tanque[0] == 0 && tanque[1] == 0 && tanque[2] == 0) EstadoDelSurtidor = false;
     else EstadoDelSurtidor = true;
 }
 
-void surtidor::simularVenta()
+void surtidor::simularVenta(unsigned short modo)
 {
     system("cls");
-    bool ventaExitosa = true; unsigned int cantidad_comprada, costoT = 0, modo;
+    bool ventaExitosa = true; unsigned int cantidad_comprada, costoT = 0;
     string  ccDelCliente, mensajeExplicion, metodoDePago, categoria, costoL = "0";
 
-    cout<<"\nQuieres digitar la informacion del cliente, o deseas que sea generada automaticamente?";
-    cout<<"\n1. Yo la digito\n2. Automatico\nElige 1 o 2: "; cin>>modo;
     if (modo == 1) pedir_datos_del_client(ccDelCliente, cantidad_comprada, metodoDePago, categoria);
     else {
     ccDelCliente = to_string(1010250435 + (rand() % (1010264538 - 1010250435)));
@@ -135,7 +133,7 @@ void surtidor::simularVenta()
     strftime(buffer, sizeof(buffer), "%d/%m/%Y %H:%M:%S", tiempo_local);
     string fechaYhora = buffer;
     
-    string EstaVenta = "\nSurtidor: " + codigoDeLsurtidor + "\n  Cliente: " + ccDelCliente + "\n  Categoria: " + categoria + "\n  Metodo De Pago: " + metodoDePago + "\n  Cantidad: " + to_string(cantidad_comprada) + " Lt\n  Costo Total: " + to_string(costoT) + " COP (" + costoL + "/Lt Hoy)";
+    string EstaVenta = "\n  Surtidor que realizo la venta: " + codigoDeLsurtidor + "\n  Cliente: " + ccDelCliente + "\n  Categoria: " + categoria + "\n  Metodo De Pago: " + metodoDePago + "\n  Cantidad: " + to_string(cantidad_comprada) + " Lt\n  Costo Total: " + to_string(costoT) + " COP (" + costoL + "/Lt)";
     
     cout << "\nFECHA Y HORA: "+fechaYhora<<"\n\n      RESUMEN DE LA VENTA:";
     // DECORACION
@@ -155,6 +153,7 @@ void surtidor::simularVenta()
             cout << "\n\nEL TANQUE DE ESTA GASOLINERA HA QUEDADO VACIO, POR LO CUAL TODOS LOS SURTIDORES HAN SIDO DESACTIVADOS!\n\n";
         }
     }
+    registroDeVentas += "\n  FECHA Y HORA: "+fechaYhora + EstaVenta + "\n";
     
     system("pause");
     system("cls");
@@ -171,12 +170,21 @@ bool surtidor::VerEstadoDelSurtidor()
     return EstadoDelSurtidor;
 }
 
-unsigned int surtidor::getVentas(string categoria)
+unsigned int surtidor::getSaldoVentas(string categoria)
 {
     if (categoria == "Regular") return saldoVentasR;
     else if (categoria == "EcoExtra") return saldoVentasE;
     else if (categoria == "Premium") return saldoVentasP;
     else if (categoria == "Todas") return saldoVentasR + saldoVentasE + saldoVentasP;
+    else return 0;
+}
+
+unsigned int surtidor::getCantidadVentas(string categoria)
+{
+    if (categoria == "Regular") return cantidadVentasR;
+    else if (categoria == "EcoExtra") return cantidadVentasE;
+    else if (categoria == "Premium") return cantidadVentasP;
+    else if (categoria == "Todas") return cantidadVentasR + cantidadVentasE + cantidadVentasP;
     else return 0;
 }
 

@@ -18,7 +18,7 @@ Gasolinera::Gasolinera(string _nombre, string _codigo, string _gerente, string _
     tanque[4] = _tanque[4];
     tanque[5] = _tanque[5];
     cantidaDeSurtidores = _cantidaDeSurtidores;
-    cout<<"\nCantidad de surtidores: "<<_cantidaDeSurtidores<<endl;
+
     for (int i = 0; i < cantidaDeSurtidores; ++i) {
         surtidores[i] = surtidor(tanque, surtidores, cantidaDeSurtidores);
     }
@@ -31,7 +31,7 @@ void Gasolinera::imprimir()
     cout<<"\nPecios HOY:\n Regular: "<<tanque[3]<<" COP/Lt, EcoExtra: "<<tanque[4]<<" COP/Lt, Premium: "<<tanque[5]<<" COP/Lt\n\n";
 }
 
-unsigned int *Gasolinera::retornarTanque()
+unsigned int *Gasolinera::getTanque()
 {
     return tanque;
 }
@@ -63,7 +63,7 @@ void Gasolinera::liberarElTanque()
 unsigned long Gasolinera::actualizarTotalVentas()
 {
     for (int i = 0; i < cantidaDeSurtidores; ++i){
-        totalVentas += surtidores[i].getVentas("Todas");
+        totalVentas += surtidores[i].getSaldoVentas("Todas");
     }
     return totalVentas;
 }
@@ -81,13 +81,27 @@ void Gasolinera::historialTransaciones()
     system("cls");
 }
 
+void Gasolinera::imprimirLitrosVendidos()
+{
+    unsigned int TotalVentasR = 0, TotalVentasE = 0, TotalVentasP = 0;
+    string ventasDeEstaEstacion = "";
+    for (int i = 0; i < cantidaDeSurtidores; ++i) {
+        TotalVentasR += surtidores[i].getCantidadVentas("Regular");
+        TotalVentasE += surtidores[i].getCantidadVentas("EcoExtra");
+        TotalVentasP += surtidores[i].getCantidadVentas("Premium");
+    }
+    cout<<"\nEN LA ESTACION "<<nombre<<" SE HA VENDIDO LA SIGUIENTE CANTIDAD DE COMBUSTIBLE:";
+    cout<<"\nRegular:  "<<TotalVentasR;
+    cout<<"\nEcoExtra: "<<TotalVentasE;
+    cout<<"\nPremium:  "<<TotalVentasP<<endl;
+    system("pause");
+    system("cls");
+}
+
 
 Gasolinera::~Gasolinera()
 {
     if (liberarTanque == true){
         delete [] tanque;
-        cout<<"\nTanque Liberado\n";
-        system("pause");
     }
-    cout<<"\nLlamando al destructor de la gasolinera\n";
 }

@@ -150,7 +150,7 @@ void TerMax::cambiarPrecio()
     if (respuesta == "si" || respuesta == "Si" || respuesta == "SI"){
         cout<<"\nINGRESA EL NUEVO PRECIO: "; cin >> nuevo_precio;
         for (unsigned int i = 0; i < tamano; ++i) {
-            ArregloDEgasolineras[i].retornarTanque()[3] = nuevo_precio;
+            ArregloDEgasolineras[i].getTanque()[3] = nuevo_precio;
         }
     }
 
@@ -158,7 +158,7 @@ void TerMax::cambiarPrecio()
     if (respuesta == "si" || respuesta == "Si" || respuesta == "SI"){
         cout<<"\nINGRESA EL NUEVO PRECIO: "; cin >> nuevo_precio;
         for (unsigned int i = 0; i < tamano; ++i) {
-            ArregloDEgasolineras[i].retornarTanque()[4] = nuevo_precio;
+            ArregloDEgasolineras[i].getTanque()[4] = nuevo_precio;
         }
     }
 
@@ -166,7 +166,7 @@ void TerMax::cambiarPrecio()
     if (respuesta == "si" || respuesta == "Si" || respuesta == "SI"){
         cout<<"\nINGRESA EL NUEVO PRECIO: "; cin >> nuevo_precio;
         for (unsigned int i = 0; i < tamano; ++i) {
-            ArregloDEgasolineras[i].retornarTanque()[5] = nuevo_precio;
+            ArregloDEgasolineras[i].getTanque()[5] = nuevo_precio;
         }
     }
 
@@ -174,47 +174,7 @@ void TerMax::cambiarPrecio()
     system("pause");
 }
 
-void TerMax::venderGasolina()
-{
-    string region;
-    cout<<"\nEn que region te encuentras?";
-    cout<<"\n1. norte\n2. centro\n3. sur\nElige una opcion (1, 2, o 3): "; cin>>region;
 
-    if (region == "1" || region == "norte"){
-        unsigned int opcion;
-        cout<<"\nEN CUAL ESTACION DE LA REGION norte QUIERES HACER LA COMPRA?";
-        for (unsigned int i = 0; i < siguientePosicionN; ++i) {
-            cout<<"\n"<<i<<". "<<ArregloDEgasolinerasN[i].getNombre();
-        }
-        cout<<"\nElige una opcion (0 a "<<siguientePosicionN-1<<"): "; cin>>opcion;
-        cout<<endl;
-
-        if(opcion >= 0 && opcion < siguientePosicionN){
-            unsigned short cantidadSurtidores = ArregloDEgasolinerasN[opcion].getcantidaDeSurtidores();
-
-            unsigned short indiceSurtidor = 0 + (rand() % (cantidadSurtidores - 1 ));
-            bool SiHaySurtiActivos = true;
-            if (!ArregloDEgasolinerasN[opcion].getSurtidores()[indiceSurtidor].VerEstadoDelSurtidor()){
-                SiHaySurtiActivos = false; //Asumimos que no habran surtidores activos
-                for (int i = 0; i < cantidadSurtidores; ++i) {
-                    if (ArregloDEgasolinerasN[opcion].getSurtidores()[i].VerEstadoDelSurtidor()){
-                        indiceSurtidor = i;
-                        SiHaySurtiActivos = true;
-                        break;
-                    }
-                }
-            }
-
-            if(SiHaySurtiActivos){
-                ArregloDEgasolinerasN[opcion].imprimir();
-                system("pause");
-                cout<<"\nTu vehiculo ha sido despachado por el surtidor: "<<ArregloDEgasolinerasN[opcion].getSurtidores()[indiceSurtidor].getcodigoDeLsurtidor()<<endl;
-                ArregloDEgasolinerasN[opcion].getSurtidores()[indiceSurtidor].simularVenta();
-            }
-
-        }
-    }
-}
 
 void TerMax::mostrarGasolineras()
 {
@@ -287,15 +247,15 @@ void TerMax::agregarGasolinera()
     unsigned int* tanqueExistente = nullptr;
     if (region == "1"){
         if (siguientePosicionN == capacidadN){redimensionar("norte",capacidadN);}
-        tanqueExistente = ArregloDEgasolinerasN[0].retornarTanque(); region = "norte";
+        tanqueExistente = ArregloDEgasolinerasN[0].getTanque(); region = "norte";
     }
     else if (region == "2"){
         if (siguientePosicionC == capacidadC){redimensionar("centro",capacidadC);}
-        tanqueExistente = ArregloDEgasolinerasC[0].retornarTanque(); region = "centro";
+        tanqueExistente = ArregloDEgasolinerasC[0].getTanque(); region = "centro";
     }
     else {
         if (siguientePosicionS == capacidadS){redimensionar("sur",capacidadS);}
-        tanqueExistente = ArregloDEgasolinerasS[0].retornarTanque(); region = "sur";
+        tanqueExistente = ArregloDEgasolinerasS[0].getTanque(); region = "sur";
     }
 
     cout<<"\nINGRESA LOS ATRIBUTOS DE LA NUEVA GASOLINERA.\n";

@@ -18,12 +18,13 @@ public:
     Gasolinera();
     Gasolinera(string nombre, string _codigo, string _gerente, string _region, string _coordenadas, unsigned int _tanque[6], unsigned short _cantidaDeSurtidores);
     void imprimir();
-    unsigned int* retornarTanque();
+    unsigned int* getTanque();
     string getNombre();
     unsigned short getcantidaDeSurtidores(string modificar = "NO");
     void liberarElTanque();
     unsigned long int actualizarTotalVentas();
     void historialTransaciones();
+    void imprimirLitrosVendidos();
 
     surtidor* getSurtidores();
     ~Gasolinera();

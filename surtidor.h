@@ -20,7 +20,7 @@ public:
 
     surtidor(const surtidor &Acopiar);
 
-    void simularVenta(unsigned short modo);
+    void simularVenta(unsigned short modo, string cambiarDia);
     void CambiarEstadoDelSurtidor(bool estado);
     bool VerEstadoDelSurtidor();
     unsigned int getSaldoVentas(string categoria);

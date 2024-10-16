@@ -31,7 +31,7 @@ surtidor::surtidor(const surtidor &Acopiar)
     else EstadoDelSurtidor = true;
 }
 
-void surtidor::simularVenta(unsigned short modo)
+void surtidor::simularVenta(unsigned short modo, string cambiarDia)
 {
     system("cls");
     bool ventaExitosa = true; unsigned int cantidad_comprada, costoT = 0;
@@ -125,13 +125,9 @@ void surtidor::simularVenta(unsigned short modo)
         }
     }
 
-
-    // Obtenemos la fecha y hora actual
-    time_t tiempo_actual = time(nullptr);
-    tm* tiempo_local = localtime(&tiempo_actual);
-    char buffer[20];
-    strftime(buffer, sizeof(buffer), "%d/%m/%Y %H:%M:%S", tiempo_local);
-    string fechaYhora = buffer;
+    string fechaYhora;
+    if (cambiarDia == "si") fechaYhora = obtenerTiempo(true);
+    else fechaYhora = obtenerTiempo();
     
     string EstaVenta = "\n  Surtidor que realizo la venta: " + codigoDeLsurtidor + "\n  Cliente: " + ccDelCliente + "\n  Categoria: " + categoria + "\n  Metodo De Pago: " + metodoDePago + "\n  Cantidad: " + to_string(cantidad_comprada) + " Lt\n  Costo Total: " + to_string(costoT) + " COP (" + costoL + "/Lt)";
     

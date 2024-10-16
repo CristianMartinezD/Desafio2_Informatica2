@@ -122,58 +122,82 @@ void TerMax::rellenarTanque(unsigned int tanque[], bool fijaPrecio)
     }
 }
 
-void TerMax::cambiarPrecio()
+void TerMax::cambiarPrecio(bool automatico)
 {
-    system("cls");
-    cout << "\n---- VAMOS A FIJAR EL PRECIO DEL COMBUSTIBLE ----\n";
-    unsigned int nuevo_precio, tamano; Gasolinera *ArregloDEgasolineras;
-    int region = validarRegion();
-
-    switch (region) {
-        case 1: {
-            ArregloDEgasolineras = ArregloDEgasolinerasN;
-            tamano = siguientePosicionN;
-            break;
+    if (automatico == true){
+        unsigned short nuevoPrecio = 3500 + (rand() % (5001 - 3500)); // Valor entre 3500 y 5000
+        for (unsigned int i = 0; i < siguientePosicionN; ++i) {
+            ArregloDEgasolinerasN[i].getTanque()[3] = nuevoPrecio;
+            ArregloDEgasolinerasN[i].getTanque()[4] = nuevoPrecio + 500;
+            ArregloDEgasolinerasN[i].getTanque()[5] = nuevoPrecio + 1000;
         }
-        case 2: {
-            ArregloDEgasolineras = ArregloDEgasolinerasC;
-            tamano = siguientePosicionC;
-            break;
+        nuevoPrecio = 3500 + (rand() % (5001 - 3500));
+        for (unsigned int i = 0; i < siguientePosicionC; ++i) {
+            ArregloDEgasolinerasC[i].getTanque()[3] = nuevoPrecio;
+            ArregloDEgasolinerasC[i].getTanque()[4] = nuevoPrecio + 500;
+            ArregloDEgasolinerasC[i].getTanque()[5] = nuevoPrecio + 500;
         }
-        case 3: {
-            ArregloDEgasolineras = ArregloDEgasolinerasS;
-            tamano = siguientePosicionS;
-            break;
+        nuevoPrecio = 3500 + (rand() % (5001 - 3500));
+        for (unsigned int i = 0; i < siguientePosicionS; ++i) {
+            ArregloDEgasolinerasS[i].getTanque()[3] = nuevoPrecio;
+            ArregloDEgasolinerasC[i].getTanque()[4] = nuevoPrecio + 500;
+            ArregloDEgasolinerasC[i].getTanque()[5] = nuevoPrecio + 500;
         }
     }
 
-    string respuesta;
-    cout<<"\nVAS A CAMBIAR EL PRECIO DEL COMBUSTIBLE Regular? (si, no): "; cin >> respuesta;
-    if (respuesta == "si" || respuesta == "Si" || respuesta == "SI"){
-        cout<<"\nINGRESA EL NUEVO PRECIO: "; cin >> nuevo_precio;
-        for (unsigned int i = 0; i < tamano; ++i) {
-            ArregloDEgasolineras[i].getTanque()[3] = nuevo_precio;
-        }
-    }
 
-    cout<<"\nVAS A CAMBIAR EL PRECIO DEL COMBUSTIBLE EcoExtra? (si, no): "; cin >> respuesta;
-    if (respuesta == "si" || respuesta == "Si" || respuesta == "SI"){
-        cout<<"\nINGRESA EL NUEVO PRECIO: "; cin >> nuevo_precio;
-        for (unsigned int i = 0; i < tamano; ++i) {
-            ArregloDEgasolineras[i].getTanque()[4] = nuevo_precio;
-        }
-    }
+    else{
+        system("cls");
+        cout << "\n---- VAMOS A FIJAR EL PRECIO DEL COMBUSTIBLE ----\n";
+        unsigned int nuevo_precio, tamano; Gasolinera *ArregloDEgasolineras;
+        int region = validarRegion();
 
-    cout<<"\nVAS A CAMBIAR EL PRECIO DEL COMBUSTIBLE Premium? (si, no): "; cin >> respuesta;
-    if (respuesta == "si" || respuesta == "Si" || respuesta == "SI"){
-        cout<<"\nINGRESA EL NUEVO PRECIO: "; cin >> nuevo_precio;
-        for (unsigned int i = 0; i < tamano; ++i) {
-            ArregloDEgasolineras[i].getTanque()[5] = nuevo_precio;
+        switch (region) {
+            case 1: {
+                ArregloDEgasolineras = ArregloDEgasolinerasN;
+                tamano = siguientePosicionN;
+                break;
+            }
+            case 2: {
+                ArregloDEgasolineras = ArregloDEgasolinerasC;
+                tamano = siguientePosicionC;
+                break;
+            }
+            case 3: {
+                ArregloDEgasolineras = ArregloDEgasolinerasS;
+                tamano = siguientePosicionS;
+                break;
+            }
         }
-    }
 
-    cout <<"\n\nHAS CAMBIADO EXITOSAMENTE EL PRECIO DE LA GASOLINA EN ESTA REGION!\n\n";
-    system("pause");
+        string respuesta;
+        cout<<"\nVAS A CAMBIAR EL PRECIO DEL COMBUSTIBLE Regular? (si, no): "; cin >> respuesta;
+        if (respuesta == "si" || respuesta == "Si" || respuesta == "SI"){
+            cout<<"\nINGRESA EL NUEVO PRECIO: "; cin >> nuevo_precio;
+            for (unsigned int i = 0; i < tamano; ++i) {
+                ArregloDEgasolineras[i].getTanque()[3] = nuevo_precio;
+            }
+        }
+
+        cout<<"\nVAS A CAMBIAR EL PRECIO DEL COMBUSTIBLE EcoExtra? (si, no): "; cin >> respuesta;
+        if (respuesta == "si" || respuesta == "Si" || respuesta == "SI"){
+            cout<<"\nINGRESA EL NUEVO PRECIO: "; cin >> nuevo_precio;
+            for (unsigned int i = 0; i < tamano; ++i) {
+                ArregloDEgasolineras[i].getTanque()[4] = nuevo_precio;
+            }
+        }
+
+        cout<<"\nVAS A CAMBIAR EL PRECIO DEL COMBUSTIBLE Premium? (si, no): "; cin >> respuesta;
+        if (respuesta == "si" || respuesta == "Si" || respuesta == "SI"){
+            cout<<"\nINGRESA EL NUEVO PRECIO: "; cin >> nuevo_precio;
+            for (unsigned int i = 0; i < tamano; ++i) {
+                ArregloDEgasolineras[i].getTanque()[5] = nuevo_precio;
+            }
+        }
+
+        cout <<"\n\nHAS CAMBIADO EXITOSAMENTE EL PRECIO DE LA GASOLINA EN ESTA REGION!\n\n";
+        system("pause");
+    }
 }
 
 

@@ -72,15 +72,18 @@ unsigned short MenuDeEstaciones(TerMax &gasolinerasDelPais){
                 else {cout << "REGION INVALIDA.\n"; break;}
             }
             case 5: {
-                string region;
+                string region, cambiarDia;
+                cout<<"\nDESEAS SIMULAR UN CAMBIO DE DIA? (si, no): "; cin>>cambiarDia;
+                if (cambiarDia == "si") gasolinerasDelPais.cambiarPrecio(true);
+
                 cout<<"\nEn que region te encuentras?";
                 cout << "\n1. norte\n2. centro\n3. sur";
                 cout<<"\nIngresa una de las anteriores opciones (1, 2, o 3): "; cin >> region;
                 unsigned int tamanoArreglo = gasolinerasDelPais.getSizeArreglo(region);
 
-                if (region == "1" || region == "norte") {venderGasolina(gasolinerasDelPais.getArregloDeGasolineras("norte"), "norte", tamanoArreglo); break;}
-                else if (region == "2" || region == "centro") {venderGasolina(gasolinerasDelPais.getArregloDeGasolineras("centro"), "centro", tamanoArreglo); break;}
-                else if (region == "3" || region == "sur") {venderGasolina(gasolinerasDelPais.getArregloDeGasolineras("sur"), "sur", tamanoArreglo); break;}
+                if (region == "1" || region == "norte") {venderGasolina(gasolinerasDelPais.getArregloDeGasolineras("norte"), "norte", tamanoArreglo, cambiarDia); break;}
+                else if (region == "2" || region == "centro") {venderGasolina(gasolinerasDelPais.getArregloDeGasolineras("centro"), "centro", tamanoArreglo, cambiarDia); break;}
+                else if (region == "3" || region == "sur") {venderGasolina(gasolinerasDelPais.getArregloDeGasolineras("sur"), "sur", tamanoArreglo, cambiarDia); break;}
                 else {cout << "REGION INVALIDA.\n"; break;}
             }
             case 6: {
@@ -416,10 +419,10 @@ void reportarLitrosVendidos(Gasolinera *ArregloDeGasolineras, string region, uns
     ArregloDeGasolineras[opcion].imprimirLitrosVendidos();
 }
 
-void venderGasolina(Gasolinera *ArregloDeGasolineras, string region, unsigned int tamanoArreglo)
+void venderGasolina(Gasolinera *ArregloDeGasolineras, string region, unsigned int tamanoArreglo, string cambiarDia)
 {
     unsigned int opcion;
-    cout<<"\nEN CUAL ESTACION DE LA REGION "<<region<<" QUIERES HACER LA COMPRA?";
+    cout<<"\n\nEN CUAL ESTACION DE LA REGION "<<region<<" QUIERES HACER LA COMPRA?";
     for (unsigned int i = 0; i < tamanoArreglo; ++i) {
         cout<<"\n"<<i<<". "<<ArregloDeGasolineras[i].getNombre();
     }
@@ -428,7 +431,7 @@ void venderGasolina(Gasolinera *ArregloDeGasolineras, string region, unsigned in
     if(opcion >= 0 && opcion < tamanoArreglo){
         unsigned short cantidadSurtidores = ArregloDeGasolineras[opcion].getcantidaDeSurtidores(), modo;
 
-        cout<<"\nQuieres que esta venta sea automatica o deseas realizarla manualmente?";
+        cout<<"\n\nQuieres que esta venta sea automatica o deseas realizarla manualmente?";
         cout<<"\n1. Manualmente\n2. Automatico\nElige 1 o 2: "; cin>>modo;
 
         system("cls");
@@ -450,7 +453,7 @@ void venderGasolina(Gasolinera *ArregloDeGasolineras, string region, unsigned in
                 cout<<"\nINFORMACION DE LA ESTACION DONDE ESTAS COMPRANDO:\n";
                 ArregloDeGasolineras[opcion].imprimir();
                 system("pause");
-                ArregloDeGasolineras[opcion].getSurtidores()[indiceSurtidor].simularVenta(2);
+                ArregloDeGasolineras[opcion].getSurtidores()[indiceSurtidor].simularVenta(2, cambiarDia);
             }
         }
         else{
@@ -472,7 +475,7 @@ void venderGasolina(Gasolinera *ArregloDeGasolineras, string region, unsigned in
                     cout<<"\nINFORMACION DE LA ESTACION DONDE ESTAS COMPRANDO:\n";
                     ArregloDeGasolineras[opcion].imprimir();
                     system("pause");
-                    ArregloDeGasolineras[opcion].getSurtidores()[indiceSurtidor].simularVenta(1);
+                    ArregloDeGasolineras[opcion].getSurtidores()[indiceSurtidor].simularVenta(1, cambiarDia);
                 }
                 else {
                     cout<<"\nNO ELEGISTE UN SURTIDOR ACTIVO!\nSALIENDO...\n\n";
@@ -538,3 +541,21 @@ void detectarFugas(Gasolinera *ArregloDeGasolineras, string region, unsigned int
 
     ArregloDeGasolineras[indice].detectarFugas();
 }
+
+string  obtenerTiempo(bool cambiarDia)
+{
+    // Obtenemos la fecha y hora actual
+    time_t tiempo_actual = time(nullptr);
+    tm* tiempo_local = localtime(&tiempo_actual);
+
+    if (cambiarDia){
+        int diaAleatorio = rand() % 28 + 1;
+        tiempo_local->tm_mday = diaAleatorio;
+        tiempo_actual = mktime(tiempo_local);
+    }
+    char buffer[20];
+    strftime(buffer, sizeof(buffer), "%d/%m/%Y %H:%M:%S", tiempo_local);
+    string fechaYhora = buffer;
+    return fechaYhora;
+}
+

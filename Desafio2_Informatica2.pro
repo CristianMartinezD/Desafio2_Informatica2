@@ -7,9 +7,11 @@ SOURCES += \
         funciones.cpp \
         gasolinera.cpp \
         main.cpp \
+        surtidor.cpp \
         termax.cpp
 
 HEADERS += \
     funciones.h \
     gasolinera.h \
+    surtidor.h \
     termax.h

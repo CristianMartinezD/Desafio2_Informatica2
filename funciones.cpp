@@ -308,6 +308,8 @@ void agregarYQitarSurtidor(Gasolinera* ArregloDeGasolineras, string region, unsi
         for (int i = indiceQuitar; i < ArregloDeGasolineras[opcion].getcantidaDeSurtidores(); ++i) {
             ArregloDeGasolineras[opcion].getSurtidores()[i] = ArregloDeGasolineras[opcion].getSurtidores()[i+1];
         }
+        // Destruiomos el surtidor de la ultima posicion
+        ArregloDeGasolineras[opcion].getSurtidores()[ArregloDeGasolineras[opcion].getcantidaDeSurtidores() - 1].~surtidor();
         ArregloDeGasolineras[opcion].getcantidaDeSurtidores("-");
 
         cout<<"\nSURTIDOR QUITADO EXITOSAMENTE!";

@@ -16,7 +16,7 @@ int main() {
         cout << "3. Calcular Ventas Totales por Categoria en cada E/S del pais\n";
         cout << "4. Fijar Precios del Combustible\n";
         cout << "5. Mostrar Gasolineras\n";
-        cout << "6. Entrar al menu de estaciones\n";
+        cout << "6. ENTRAR AL MENU DE ESTACIONES\n";
         cout << "7. Salir\n";
         cout << "Seleccione una opcion (1, 2, 3, 4, 5, 6, o 7): "; cin >> opcion;
         switch(opcion) {

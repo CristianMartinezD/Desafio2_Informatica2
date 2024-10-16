@@ -124,6 +124,7 @@ void TerMax::rellenarTanque(unsigned int tanque[], bool fijaPrecio)
 
 void TerMax::cambiarPrecio()
 {
+    system("cls");
     cout << "\n---- VAMOS A FIJAR EL PRECIO DEL COMBUSTIBLE ----\n";
     unsigned int nuevo_precio, tamano; Gasolinera *ArregloDEgasolineras;
     int region = validarRegion();

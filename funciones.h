@@ -16,9 +16,10 @@ void agregarYQitarSurtidor(Gasolinera* ArregloDeGasolineras, string region, unsi
 void activarYDesactivarSurtidor(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
 void verHistoricoDeVentaDeUnaEstacion(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
 void reportarLitrosVendidos(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
-void venderGasolina(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
+void venderGasolina(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo, string cambiarDia = "no");
 void AsignarCapacidadDelTanque(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
 void detectarFugas(Gasolinera* ArregloDeGasolineras, string region, unsigned int tamanoArreglo);
+string obtenerTiempo(bool cambiarDia = false);
 
 
 #endif // FUNCIONES_H

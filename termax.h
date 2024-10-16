@@ -26,7 +26,7 @@ public:
     void eliminarEstacion();
 
     void rellenarTanque(unsigned int tanque[], bool fijaPrecio = false);
-    void cambiarPrecio();
+    void cambiarPrecio(bool automatico = false);
 
     void mostrarGasolineras();
 

@@ -43,7 +43,6 @@ void TerMax::gasolinerasDelNorte()
 
 void TerMax::gasolinerasDelCentro()
 {
-    srand(time(0));
     unsigned int tanque1[6], tanque2[6], tanque3[6], tanque4[6], tanque5[6];
     rellenarTanque(tanque1,true); rellenarTanque(tanque2); rellenarTanque(tanque3); rellenarTanque(tanque4); rellenarTanque(tanque5);
     for (int i = 0; i < 3; ++i) {
